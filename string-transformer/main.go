@@ -102,6 +102,45 @@ func Title(text string) string {
 	return strings.Join(word, " ")
 }
 
+// reversed function
+func Reversed(text string) string {
+	if strings.HasPrefix(text, "reversed ") {
+		text = strings.TrimPrefix(text, "reversed ")
+	}
+
+	words := strings.Fields(text)
+
+	for i, word := range words {
+		Reverse := []string{}
+		for j := len(word) - 1; j >= 0; j-- {
+			Reverse = append(Reverse, string(word[j]))
+
+		}
+		words[i] = strings.Join(Reverse, "")
+	}
+	return strings.Join(words, " ")
+
+}
+
+func NoMarker(text string) string {
+	word := strings.Fields(text)
+	first := word[0]
+		value := []string{"upper", "lower", "snake", "title", "reversed", "cap"}
+		found := false
+
+		for _, v := range value {
+			if first == v {
+				found == true
+				break
+			}
+
+			if !found {
+				fmt.Println("")
+			}
+			
+		}
+}
+
 func main() {
 
 	fmt.Println("\t THE STRING TRANSFORMER", "\n")
@@ -112,6 +151,8 @@ func main() {
 	fmt.Println("4. snake ----> to snake_case the string input")
 	fmt.Println("5. title ----> to fix articles or sentence in the string input")
 	fmt.Println("6. reverse ----> to reverse the string input", "\n")
+	fmt.Println("7. exit ----> to immedietly end and EXIT the program","\n")
+
 	fmt.Println("Input Format ;", "\n")
 	fmt.Println("operator <text>  |   e.g up janai loves golang", "\n")
 	fmt.Println("________________________________________________________")
@@ -172,6 +213,23 @@ func main() {
 			continue
 		}
 
+		if strings.ToLower(input) == "exit" {
+			fmt.Println()
+			fmt.Println("exiting program ......................")
+			return
+		}
+
+		
+		}
+
+
+		text = input
+
+		
+		break
+
 	}
+
+	
 
 }

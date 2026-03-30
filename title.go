@@ -19,8 +19,6 @@ func Title(text string) string {
 	}
 	if len(word) > 0 && strings.ToLower(word[0]) == "title" {
 
-		for i := 0; i < len(word); i++ {
-		}
 		word = word[1:]
 	}
 
@@ -29,5 +27,5 @@ func Title(text string) string {
 }
 
 func main() {
-	fmt.Println(Title("title a threat in the north"))
+	fmt.Println(Title("title the threat in the north"))
 }
