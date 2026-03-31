@@ -1,4 +1,4 @@
-package stringtransformer
+package main
 
 import (
 	"bufio"
@@ -98,14 +98,16 @@ func Title(text string) string {
 		word = word[1:]
 	}
 
-	word[0] = strings.Title(word[0])
+	if len(word) > 0 {
+    word[0] = strings.Title(word[0])
+}
 	return strings.Join(word, " ")
 }
 
 // reversed function
 func Reversed(text string) string {
-	if strings.HasPrefix(text, "reversed ") {
-		text = strings.TrimPrefix(text, "reversed ")
+	if strings.HasPrefix(text, "reverse ") {
+		text = strings.TrimPrefix(text, "reverse ")
 	}
 
 	words := strings.Fields(text)
@@ -120,25 +122,6 @@ func Reversed(text string) string {
 	}
 	return strings.Join(words, " ")
 
-}
-
-func NoMarker(text string) string {
-	word := strings.Fields(text)
-	first := word[0]
-		value := []string{"upper", "lower", "snake", "title", "reversed", "cap"}
-		found := false
-
-		for _, v := range value {
-			if first == v {
-				found == true
-				break
-			}
-
-			if !found {
-				fmt.Println("")
-			}
-			
-		}
 }
 
 func main() {
@@ -161,7 +144,10 @@ func main() {
 
 	var text string
 
+start :
 	for {
+		fmt.Println()
+		fmt.Print("ENTER INPUT : ")
 
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
@@ -203,7 +189,7 @@ func main() {
 			continue
 		}
 
-		if input == "reversed" {
+		if input == "reverse" {
 			fmt.Println("ERROR: No text provided. Usage: reversed <text>", "\n")
 			continue
 		}
@@ -218,18 +204,73 @@ func main() {
 			fmt.Println("exiting program ......................")
 			return
 		}
+		text = input
 
+					word := strings.Fields(text)
+				if len(word) == 0 {
+					continue
+				}
+		first := strings.ToLower(word[0])
+
+		value := []string{"upper", "lower", "snake", "title", "reverse", "cap"}
+		found := false
+
+		for _, v := range value {
+			if first == v {
+				found = true
+				break
+			}
+		}
+
+			if !found {
+				fmt.Println("Unknown command/marker:", word[0])
+				fmt.Println("Valid commands: upper, lower, cap, title, snake, reverse, exit","\n")
+				continue
+			}
+			
+		
+		break
 		
 		}
 
+		if strings.HasPrefix(strings.ToLower(text), "upper ") {
+			result := Upper(text)
+			fmt.Println("RESULT :", result)
+			goto start
+		}
 
-		text = input
+	if strings.HasPrefix(strings.ToLower(text), "lower ") {
+			result := Lower(text)
+			fmt.Println("RESULT :", result)
+			goto start
+		}
 
-		
-		break
+		if strings.HasPrefix(strings.ToLower(text), "cap ") {
+			result1 := Cap(text)
+			fmt.Println("RESULT :", result1)
+			goto start
+		}
+
+		if strings.HasPrefix(strings.ToLower(text), "reverse ") {
+			result := Reversed(text)
+			fmt.Println("RESULT :", result)
+			goto start
+		}
+
+		if strings.HasPrefix(strings.ToLower(text), "snake ") {
+			result := Snake(text)
+			fmt.Println("RESULT :", result)
+			goto start
+		}
+
+		if strings.HasPrefix(strings.ToLower(text), "title ") {
+			result := Title(text)
+			fmt.Println("RESULT :", result)
+			goto start
+		}
 
 	}
 
 	
 
-}
+
