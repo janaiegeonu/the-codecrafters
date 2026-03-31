@@ -99,8 +99,8 @@ func Title(text string) string {
 	}
 
 	if len(word) > 0 {
-    word[0] = strings.Title(word[0])
-}
+		word[0] = strings.Title(word[0])
+	}
 	return strings.Join(word, " ")
 }
 
@@ -125,6 +125,7 @@ func Reversed(text string) string {
 }
 
 func main() {
+	var history []string
 
 	fmt.Println("\t THE STRING TRANSFORMER", "\n")
 	fmt.Println("Markers & their Operations ;", "\n")
@@ -134,17 +135,17 @@ func main() {
 	fmt.Println("4. snake ----> to snake_case the string input")
 	fmt.Println("5. title ----> to fix articles or sentence in the string input")
 	fmt.Println("6. reverse ----> to reverse the string input", "\n")
-	fmt.Println("7. exit ----> to immedietly end and EXIT the program","\n")
+	fmt.Println("7. exit ----> to immedietly end and EXIT the program", "\n")
 
 	fmt.Println("Input Format ;", "\n")
-	fmt.Println("operator <text>  |   e.g up janai loves golang", "\n")
+	fmt.Println("operator <text>  |   e.g upper janai loves golang", "\n")
 	fmt.Println("________________________________________________________")
 
 	reader := bufio.NewReader(os.Stdin)
 
 	var text string
 
-start :
+start:
 	for {
 		fmt.Println()
 		fmt.Print("ENTER INPUT : ")
@@ -206,13 +207,13 @@ start :
 		}
 		text = input
 
-					word := strings.Fields(text)
-				if len(word) == 0 {
-					continue
-				}
+		word := strings.Fields(text)
+		if len(word) == 0 {
+			continue
+		}
 		first := strings.ToLower(word[0])
 
-		value := []string{"upper", "lower", "snake", "title", "reverse", "cap"}
+		value := []string{"upper", "lower", "snake", "title", "reverse", "cap", "history"}
 		found := false
 
 		for _, v := range value {
@@ -222,55 +223,70 @@ start :
 			}
 		}
 
-			if !found {
-				fmt.Println("Unknown command/marker:", word[0])
-				fmt.Println("Valid commands: upper, lower, cap, title, snake, reverse, exit","\n")
-				continue
-			}
-			
-		
+		if !found {
+			fmt.Println("Unknown command/marker:", word[0])
+			fmt.Println("Valid commands: upper, lower, cap, title, snake, reverse, exit", "\n")
+			continue
+		}
+
 		break
-		
-		}
-
-		if strings.HasPrefix(strings.ToLower(text), "upper ") {
-			result := Upper(text)
-			fmt.Println("RESULT :", result)
-			goto start
-		}
-
-	if strings.HasPrefix(strings.ToLower(text), "lower ") {
-			result := Lower(text)
-			fmt.Println("RESULT :", result)
-			goto start
-		}
-
-		if strings.HasPrefix(strings.ToLower(text), "cap ") {
-			result1 := Cap(text)
-			fmt.Println("RESULT :", result1)
-			goto start
-		}
-
-		if strings.HasPrefix(strings.ToLower(text), "reverse ") {
-			result := Reversed(text)
-			fmt.Println("RESULT :", result)
-			goto start
-		}
-
-		if strings.HasPrefix(strings.ToLower(text), "snake ") {
-			result := Snake(text)
-			fmt.Println("RESULT :", result)
-			goto start
-		}
-
-		if strings.HasPrefix(strings.ToLower(text), "title ") {
-			result := Title(text)
-			fmt.Println("RESULT :", result)
-			goto start
-		}
 
 	}
 
-	
+	if strings.HasPrefix(strings.ToLower(text), "upper ") {
+		result := Upper(text)
+		fmt.Println("RESULT :", result)
+		history = append(history, text+": "+result)
+		goto start
+	}
 
+	if strings.HasPrefix(strings.ToLower(text), "lower ") {
+		result := Lower(text)
+		fmt.Println("RESULT :", result)
+		history = append(history, text+": "+result)
+		goto start
+	}
 
+	if strings.HasPrefix(strings.ToLower(text), "cap ") {
+		result := Cap(text)
+		fmt.Println("RESULT :", result)
+		history = append(history, text+": "+result)
+		goto start
+	}
+
+	if strings.HasPrefix(strings.ToLower(text), "reverse ") {
+		result := Reversed(text)
+		fmt.Println("RESULT :", result)
+		history = append(history, text+": "+result)
+		goto start
+	}
+
+	if strings.HasPrefix(strings.ToLower(text), "snake ") {
+		result := Snake(text)
+		fmt.Println("RESULT :", result)
+		history = append(history, text+": "+result)
+		goto start
+	}
+
+	if strings.HasPrefix(strings.ToLower(text), "title ") {
+		result := Title(text)
+		fmt.Println("RESULT :", result)
+		history = append(history, text+": "+result)
+		goto start
+	}
+
+	if text == "history" {
+		if len(history) < 5 {
+			fmt.Println(history)
+
+		} else {
+			println(history[len(history)-1])
+			println(history[len(history)-2])
+			println(history[len(history)-3])
+			println(history[len(history)-4])
+			println(history[len(history)-5])
+
+		}
+		goto start
+	}
+}

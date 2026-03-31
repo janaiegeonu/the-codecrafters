@@ -1,0 +1,2 @@
+      extra spaces were not cleaned before logging
+                  
